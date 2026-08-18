@@ -11,11 +11,28 @@ Dark streetwear ecommerce site, rebuilt as a MERN stack app. Originally a static
 | Database | MongoDB Atlas |
 | Auth | JWT |
 
-## Status
+## Run locally
 
-Early rebuild. `client/` (React) and `server/` (Express) are the planned app roots; they are not in the tree yet.
+1. Copy `server/.env.example` to `server/.env` and set `MONGO_URI` (local MongoDB or Atlas) and `JWT_SECRET`.
+2. Install and start the API:
 
-## Project layout (planned)
+```bash
+cd server
+npm install
+npm run dev
+```
+
+3. Install and start the storefront:
+
+```bash
+cd client
+npm install
+npm run dev
+```
+
+Open http://localhost:5173. Register an account, then use **Settings** to update name, email, phone, shipping address, and password.
+
+## Project layout
 
 ```
 client/   React storefront (Vite)
