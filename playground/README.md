@@ -71,6 +71,7 @@ export default defineConfig([
     },
   },
 ])
+```
 
 ## AI Tool: searchProducts
 
