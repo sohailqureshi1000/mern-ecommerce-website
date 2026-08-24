@@ -64,7 +64,7 @@ const API_URL = import.meta.env.DEV
   ? 'http://localhost:5000/api/chat'
   : 'https://sohail-fe06-server.vercel.app/api/chat';
 
-const response = await fetch(API_URL, {{
+const response = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: apiMessages }),
