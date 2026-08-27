@@ -149,7 +149,7 @@ describe('error states', () => {
     await user.click(screen.getByRole('button', { name: /send/i }));
 
     expect(
-      await screen.findByText(/connection nahi ho saka/i)
+      await screen.findByText(/connection fail ho gaya/i)
     ).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /retry/i })).toBeInTheDocument();
   });
