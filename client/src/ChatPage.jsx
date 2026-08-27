@@ -299,7 +299,7 @@ function ChatPage() {
 
 function errorHeadline(kind) {
   switch (kind) {
-    case 'network': return 'Connection nahi ho saka';
+    case 'network': return 'Connection fail ho gaya';
     case 'rate_limit': return 'Rate limit lag gaya';
     case 'server': return 'Server error';
     case 'empty': return 'Jawab nahi mila';
