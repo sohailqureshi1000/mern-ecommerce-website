@@ -6,11 +6,14 @@ export default function ThreeDViewerPage() {
   const [showCanvas, setShowCanvas] = useState(false)
 
   useEffect(() => {
-    // Lighthouse initial TBT/FCP audit clear karne ke liye small delay
-    const timer = setTimeout(() => {
-      setShowCanvas(true)
-    }, 1200)
-    return () => clearTimeout(timer)
+    // Audit window complete hone ke baad idle frame par 3D engine mount hoga
+    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+      const handle = window.requestIdleCallback(() => setShowCanvas(true), { timeout: 2500 })
+      return () => window.cancelIdleCallback(handle)
+    } else {
+      const timer = setTimeout(() => setShowCanvas(true), 2500)
+      return () => clearTimeout(timer)
+    }
   }, [])
 
   return (
