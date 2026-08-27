@@ -24,16 +24,12 @@ export default function ThreeDCanvas() {
   return (
     <div
       role="region"
-      aria-label="Interactive 3D Product Canvas"
+      aria-label="Interactive 3D Model Viewport. Use mouse or touch to rotate."
       tabIndex={0}
       onDragOver={handleDragOver}
       onDrop={handleDrop}
-      style={{ width: '100%', height: '100%', touchAction: 'none', position: 'relative' }}
+      style={{ width: '100%', height: '100%', touchAction: 'none', position: 'relative', outline: 'none' }}
     >
-      <span className="sr-only">
-        Interactive 3D Model Viewport. Use mouse or touch to rotate. Drop a .glb file to replace model.
-      </span>
-
       <Canvas
         frameloop="demand"
         shadows={false}
@@ -41,10 +37,10 @@ export default function ThreeDCanvas() {
         camera={{ fov: 45, position: [3, 2, 5] }}
         gl={{ antialias: false, powerPreference: 'low-power' }}
       >
-        <ambientLight intensity={0.8} />
+        <ambientLight intensity={0.9} />
         <directionalLight position={[5, 5, 5]} intensity={1.2} />
 
-        <Suspense fallback={<Html center><p role="status" style={{ color: '#000' }}>Loading 3D Model...</p></Html>}>
+        <Suspense fallback={<Html center><p role="status" style={{ color: '#ffffff', whiteSpace: 'nowrap' }}>Loading 3D Model...</p></Html>}>
           <Bounds fit clip observe margin={1.2}>
             <Model url={modelUrl} />
           </Bounds>
@@ -56,5 +52,3 @@ export default function ThreeDCanvas() {
     </div>
   )
 }
-
-useGLTF.preload(DEFAULT_MODEL_URL)
