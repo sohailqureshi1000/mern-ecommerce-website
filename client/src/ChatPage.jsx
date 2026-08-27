@@ -395,3 +395,5 @@ const styles = {
 };
 
 export default ChatPage;
+
+export { ToolCard };
