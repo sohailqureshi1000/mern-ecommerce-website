@@ -51,3 +51,21 @@ Throws an error if no products match — rendered as a designed error card in th
 2. `input-available` — spinner shown while the tool executes, displaying the search query
 3. `output-available` — results rendered as a product card grid (image, name, price)
 4. `output-error` — designed red error card with the failure message
+
+## 3D Product Viewer (`/3d-viewer`) — FE-AA2 Feature
+
+### Overview & Built Features
+- **Interactive R3F Scene:** Renders real-time 3D assets with smooth `OrbitControls`, `ContactShadows`, and dynamic environment lighting.
+- **Live Material Configurator:** Integrated `Leva` control panel allowing live material tweaking (color, metalness, roughness, wireframe mode, auto-rotation speed).
+- **Drag & Drop GLB Support:** Built-in dropzone allowing users to drop custom `.glb` 3D files directly onto the canvas to instantly view and inspect their own models.
+
+### FE-10 Performance Note (Optimization Lens)
+- **Code-Splitting & Lazy Loading:** Three.js and `@react-three/fiber` bundles are isolated into a separate dynamic chunk via `React.lazy()` to protect initial load performance.
+- **Dynamic DPR Clamping:** Hardware pixel ratio is strictly capped to `dpr={[1, 1.5]}` to maintain high frame rates (FPS) and reduce GPU thermal throttling on high-DPI/mobile screens.
+- **Adaptive Fallback Strategy:** Checks user system constraints (`prefers-reduced-motion` and `navigator.deviceMemory < 4`) to conditionally skip heavy WebGL canvas initialization and serve a lightweight static preview asset (`3d-fallback-preview.png`).
+- **Zero Server Overhead:** Drag-and-drop model processing generates local Object URLs, eliminating API network overhead for custom assets.
+
+### Future Enhancements
+- Integration of DRACO mesh compression for model file size reduction.
+- Custom HDR environment map selector.
+- High-res scene snapshot/screenshot download feature.
