@@ -2,6 +2,7 @@ const { SYSTEM_PROMPT, MODEL } = require("../config/aiConfig");
 const express = require("express");
 const Groq = require("groq-sdk");
 const { searchProducts, toolDefinition } = require("../tools/searchProducts");
+const { chatLimiter } = require("../middleware/rateLimiter");
 
 const router = express.Router();
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
@@ -10,13 +11,19 @@ const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 // Never honored in production, so it can't be abused as a real endpoint.
 const SIMULATE_ENABLED = process.env.NODE_ENV !== "production";
 
-router.post("/", async (req, res) => {
+router.post("/", chatLimiter, async (req, res) => {
   const { messages } = req.body;
   const simulate = SIMULATE_ENABLED ? req.query.simulate : undefined;
 
   // Edge case: empty input — never even open a stream for it
   if (!Array.isArray(messages) || messages.length === 0) {
     return res.status(400).json({ error: "Message khali nahi ho sakta." });
+  }
+
+  // Input cap — koi bohot lamba prompt bhej ke tokens waste na kare
+  const lastMessage = messages[messages.length - 1];
+  if (lastMessage?.content && lastMessage.content.length > 1000) {
+    return res.status(400).json({ error: "Message 1000 characters se zyada nahi ho sakta." });
   }
 
   // Edge case: rate limit
