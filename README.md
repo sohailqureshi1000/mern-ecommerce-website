@@ -106,12 +106,25 @@ Built the same feature (a user settings form) twice — once with a one-line vag
 - **CI:** GitHub Actions runs both suites on every push and blocks merging on failure.
 - Run locally: `cd client && npm run test` (Vitest) and `npm run test:e2e` (Playwright).
 
-## Screenshots
+## Performance & accessibility audit
 
-![AI Chat Interface](client/docs/screenshot-chat.png)
+Lighthouse audit on `/chat` (mobile), run three times as the page moved from "broken defaults" to a production build:
 
-![Error State Handling](client/docs/screenshot-error.png)
+| Run | Environment | Performance | Accessibility |
+|---|---|---|---|
+| 1 — before | Live URL | 90 | 87 |
+| 2 — after fixes, dev server | `localhost:5173` (Vite dev mode) | 49\* | 100 |
+| 3 — after fixes, production build | `localhost:4173` (`npm run build` + `preview`) | 94 | 100 |
+| 4 — final, live | Live URL, Incognito | **100** | **100** |
 
+\* Run 2's 49 is a known false signal, not a regression — Vite's dev server ships unminified, unbundled JS (a single dependency chunk alone was 2.7 MB), so its Lighthouse numbers aren't representative of anything a real visitor sees. It's included here for an honest record of the process, not as a real score.
+
+**Two concrete fixes made from the initial audit's findings:**
+
+1. **Missing `<main>` landmark** (Best Practices flag) — the `/chat` route rendered its whole page inside a plain `<div>`. Fixed by changing the root element in `ChatPage.jsx` to `<main>`.
+2. **Insufficient color contrast** (Accessibility flag) — white text on the brand blue (`#0084ff`) came out to roughly a 3.65:1 contrast ratio, under the WCAG AA minimum of 4.5:1 for normal text. Used on the user's chat bubble, the Send button, and the product price text. Fixed by darkening the blue to `#0066cc` (~5.6:1 ratio) in all three places.
+
+Together these took Accessibility from 87 → 100 and, once measured on an actual production build instead of the dev server, Performance settled at 94–100 depending on whether Chrome extensions are active during the run (Incognito removes that noise entirely).
 
 ## How it fails safely
 
