@@ -106,6 +106,12 @@ Built the same feature (a user settings form) twice — once with a one-line vag
 - **CI:** GitHub Actions runs both suites on every push and blocks merging on failure.
 - Run locally: `cd client && npm run test` (Vitest) and `npm run test:e2e` (Playwright).
 
+## Screenshots
+
+![AI Chat Interface](client/docs/screenshot-chat.png)
+
+![Error State Handling](client/docs/screenshot-error.png)
+
 ## Performance & accessibility audit
 
 Lighthouse audit on `/chat` (mobile), run three times as the page moved from "broken defaults" to a production build:
@@ -140,7 +146,15 @@ Together these took Accessibility from 87 → 100 and, once measured on an actua
 
 These were built and sabotage-tested in FE-08 (network fail, mid-stream fail, `429`, malformed JSON, empty state all deliberately triggered via a dev-only `?simulate=` switch, disabled outright when `NODE_ENV=production`).
 
-## Deployment
+## Deployment checklist
+
+- [x] Environment variables set on Vercel (client and server, separately)
+- [x] Production promotion done — both client and server are live, not just preview deployments
+- [x] Cross-browser pass — checked in Chrome, Firefox, Safari (desktop + mobile Safari)
+- [x] Production hygiene — rate limiting (15 req/min/IP) and input cap (1000 chars) on the AI route, `maxDuration: 30` on the streaming function
+- [x] Git history clean — Conventional Commits used throughout (`feat`, `fix`, `docs`, `chore`, `refactor`)
+
+**Signed off:** Sohail Razzaq, 30 Aug 2026
 
 - **Client:** Vercel, auto-deploys from `main` → https://sohail-fe06-client.vercel.app
 - **Server:** Vercel serverless function, auto-deploys from `main` → https://sohail-fe06-server.vercel.app
