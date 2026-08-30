@@ -213,7 +213,7 @@ function ChatPage() {
   };
 
   return (
-    <div style={{ ...styles.page, height: viewportHeight ? `${viewportHeight}px` : '100dvh' }}>
+    <main style={{ ...styles.page, height: viewportHeight ? `${viewportHeight}px` : '100dvh' }}>
       <div style={styles.chatBox} ref={chatBoxRef} onScroll={handleScroll}>
         {messages.length === 0 && (
           <div style={styles.emptyState}>
@@ -293,7 +293,7 @@ function ChatPage() {
           <button style={styles.sendButton} onClick={() => sendMessage()}>Send</button>
         )}
       </div>
-    </div>
+    </main>
   );
 }
 
@@ -348,7 +348,7 @@ function ToolCard({ tool }) {
             <img src={p.image} alt={p.name} style={styles.productImage} />
             <div style={{ padding: '0.5rem' }}>
               <div style={{ fontSize: '0.85rem', fontWeight: 600 }}>{p.name}</div>
-              <div style={{ color: '#0084ff', fontWeight: 700 }}>${p.price}</div>
+              <div style={{ color: '#0066cc', fontWeight: 700 }}>${p.price}</div>
             </div>
           </div>
         ))}
@@ -369,14 +369,14 @@ const styles = {
   exampleChip: { padding: '0.6rem 1rem', borderRadius: '1.5rem', border: '1px solid #ddd', backgroundColor: '#f7f7f9', color: '#333', cursor: 'pointer', fontSize: '0.9rem' },
 
   bubble: { padding: '0.6rem 1rem', borderRadius: '1rem', maxWidth: '80%', wordWrap: 'break-word', whiteSpace: 'pre-wrap' },
-  userBubble: { alignSelf: 'flex-end', backgroundColor: '#0084ff', color: 'white' },
+  userBubble: { alignSelf: 'flex-end', backgroundColor: '#0066cc', color: 'white' },
   assistantBubble: { alignSelf: 'flex-start', backgroundColor: '#e5e5ea', color: 'black' },
   skeletonBubble: { display: 'flex', flexDirection: 'column', gap: '0.4rem', minWidth: '120px' },
 
   jumpButton: { alignSelf: 'center', marginBottom: '0.5rem', padding: '0.4rem 1rem', borderRadius: '1rem', border: 'none', backgroundColor: '#333', color: 'white', cursor: 'pointer' },
   inputRow: { display: 'flex', gap: '0.5rem', padding: '0.75rem', borderTop: '1px solid #ddd' },
   input: { flex: 1, padding: '0.6rem', borderRadius: '0.5rem', border: '1px solid #ccc', resize: 'none', fontSize: '1rem' },
-  sendButton: { padding: '0.6rem 1.2rem', borderRadius: '0.5rem', border: 'none', backgroundColor: '#0084ff', color: 'white', cursor: 'pointer' },
+  sendButton: { padding: '0.6rem 1.2rem', borderRadius: '0.5rem', border: 'none', backgroundColor: '#0066cc', color: 'white', cursor: 'pointer' },
   stopButton: { padding: '0.6rem 1.2rem', borderRadius: '0.5rem', border: 'none', backgroundColor: '#ff3b30', color: 'white', cursor: 'pointer' },
 
   errorCard: { alignSelf: 'flex-start', backgroundColor: '#fdecea', border: '1px solid #f5c2c0', color: '#a33', borderRadius: '0.75rem', padding: '0.75rem 1rem', maxWidth: '80%' },
@@ -387,7 +387,7 @@ const styles = {
   toolCardError: { backgroundColor: '#fdecea', border: '1px solid #f5c2c0', color: '#a33' },
   toolLabel: { fontSize: '0.8rem', color: '#888' },
   skeletonLine: { height: '10px', borderRadius: '4px', backgroundColor: '#ddd', width: '100%', animation: 'pulse 1.2s ease-in-out infinite' },
-  spinner: { width: '14px', height: '14px', border: '2px solid #ccc', borderTopColor: '#0084ff', borderRadius: '50%', animation: 'spin 0.7s linear infinite', display: 'inline-block' },
+  spinner: { width: '14px', height: '14px', border: '2px solid #ccc', borderTopColor: '#0066cc', borderRadius: '50%', animation: 'spin 0.7s linear infinite', display: 'inline-block' },
 
   productGrid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))', gap: '0.6rem', maxWidth: '90%' },
   productCard: { backgroundColor: '#fff', border: '1px solid #eee', borderRadius: '0.6rem', overflow: 'hidden', boxShadow: '0 1px 4px rgba(0,0,0,0.08)' },
